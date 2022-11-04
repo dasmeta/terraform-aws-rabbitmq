@@ -9,9 +9,8 @@ jobs:
     strategy:
       matrix:
         path:
-          - fold1
-          - fold2
-         permissions: write-all
+          - rabbitmq
+    permissions: write-all
     steps:
       - name: Setup Infracost
         uses: infracost/actions/setup@v2
