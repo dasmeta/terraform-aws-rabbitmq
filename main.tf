@@ -1,3 +1,7 @@
+locals {
+  security_groups = var.create_security_group ? [module.security_group[0].security_group_id] : var.security_groups
+}
+
 resource "aws_mq_broker" "mq" {
   broker_name = var.broker_name
 
@@ -10,7 +14,7 @@ resource "aws_mq_broker" "mq" {
   deployment_mode     = var.deployment_mode
   publicly_accessible = var.publicly_accessible
   subnet_ids          = var.subnet_ids
-  security_groups     = var.security_groups
+  security_groups     = local.security_groups
 
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
 
@@ -31,4 +35,8 @@ resource "aws_mq_broker" "mq" {
   }
 
   tags = var.tags
+
+  depends_on = [
+    module.security_group
+  ]
 }
