@@ -36,6 +36,7 @@ No requirements.
 
 | Name | Type |
 |------|------|
+| [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_mq_broker.mq](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/mq_broker) | resource |
 
 ## Inputs
@@ -43,10 +44,12 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | n/a | `bool` | `true` | no |
+| <a name="input_broker_cloudwatch_log_groups"></a> [broker\_cloudwatch\_log\_groups](#input\_broker\_cloudwatch\_log\_groups) | List of Log Groups which will be created for the broker instance. | `list(string)` | <pre>[<br>  "channel",<br>  "connection",<br>  "general"<br>]</pre> | no |
 | <a name="input_broker_name"></a> [broker\_name](#input\_broker\_name) | n/a | `string` | n/a | yes |
+| <a name="input_cloudwatch_log_group_retention_in_days"></a> [cloudwatch\_log\_group\_retention\_in\_days](#input\_cloudwatch\_log\_group\_retention\_in\_days) | The number of days to retain CloudWatch logs for the DB instance | `number` | `30` | no |
 | <a name="input_create_security_group"></a> [create\_security\_group](#input\_create\_security\_group) | n/a | `bool` | `false` | no |
 | <a name="input_deployment_mode"></a> [deployment\_mode](#input\_deployment\_mode) | n/a | `string` | `"CLUSTER_MULTI_AZ"` | no |
-| <a name="input_enable_cloudwatch_logs"></a> [enable\_cloudwatch\_logs](#input\_enable\_cloudwatch\_logs) | n/a | `bool` | `false` | no |
+| <a name="input_enable_cloudwatch_logs"></a> [enable\_cloudwatch\_logs](#input\_enable\_cloudwatch\_logs) | n/a | `bool` | `true` | no |
 | <a name="input_engine_type"></a> [engine\_type](#input\_engine\_type) | n/a | `string` | `"RabbitMQ"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | n/a | `string` | `"3.8.11"` | no |
 | <a name="input_host_instance_type"></a> [host\_instance\_type](#input\_host\_instance\_type) | n/a | `string` | `"mq.m5.large"` | no |
