@@ -6,16 +6,23 @@ on:
 jobs:
   terraform-validate:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      security-events: write
+      id-token: write
     strategy:
       matrix:
         path:
-          - rabbitmq
-    permissions: write-all
+          - /
+     
     steps:
       - name: Setup Infracost
         uses: infracost/actions/setup@v2
         with:
-           api-key: ${{secret.API_KEY}}
+           api-key: ${{secrets.INFRACOST_API_KEY}}
 
       - name: Checkout base branch
         uses: actions/checkout@v3
@@ -24,7 +31,7 @@ jobs:
 
       - name: Generate Infracost cost estimate baseline
         run: |
-          infracost breakdown --path=modules/${{ matrix.path }} \
+          infracost breakdown --path=${{ matrix.path }} \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
         continue-on-error: true
@@ -34,7 +41,7 @@ jobs:
 
       - name: Generate Infracost diff
         run: |
-          infracost diff --path=modules/${{ matrix.path }}\
+          infracost diff --path=${{ matrix.path }}\
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
